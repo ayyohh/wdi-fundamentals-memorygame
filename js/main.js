@@ -35,15 +35,18 @@ var checkForMatch = function() {
   else {
     alert("Sorry, try again");
   }
-}
+};
 
 
-var flipCard = function(cardID) {
+var flipCard = function() {
+    var cardID = this.getAttribute('data-id');
 
   console.log("User flipped " + cards[cardID].rank);
   console.log("User flipped " + cards[cardID].suit);
   console.log("User flipped " + cards[cardID].cardImage);
   cardsInPlay.push(cards[cardID].rank);
+
+  this.setAttribute('src', cards[cardID].cardImage);
 
   // have 2 cards been picked? are they equal or naw?
   if (cardsInPlay.length === 2) {
@@ -52,7 +55,19 @@ var flipCard = function(cardID) {
   else {
     alert("Pick another card");
   }
+};
 
-}
+//function that creates game board
+var createBoard = function() {
+  for (var i = 0; i < cards.length; i++) {
+
+    var cardElement = document.createElement('img');
+    cardElement.setAttribute('src', 'images/back.png');
+    cardElement.setAttribute('data-id', i);
+
+    cardElement.addEventListener('click',flipCard);
+    document.getElementById('game-board').appendChild(cardElement);
+  }
+};
 //calls the flipCard function
-flipCard();
+createBoard();
